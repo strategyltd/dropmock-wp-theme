@@ -65,7 +65,7 @@ $price = $product->get_price();
 if($price == '0')
 	$price = 'FREE';
 else
-	$price = '$'.$price.'.00';
+	$price = '$'.$price;
 
 ?>
 
