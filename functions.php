@@ -1024,6 +1024,9 @@ function dropmockMarketPlaceConfiguration(){
                             </td>
                         </tr>
                     </table>
+                    <script type="text/javascript">
+                    setTimeout(function(){window.location.reload(1);}, 60000);
+                    </script>
                 <?php else: ?>
                     <p class="submit">
                         <input type="submit" class="button button-primary" value="Save API Key">
