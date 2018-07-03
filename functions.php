@@ -1035,6 +1035,9 @@ function dropmockMarketPlaceConfiguration(){
         <?php
     }else{
 
+        if($action == 'vendors_update'){
+            updateMyVendors();
+        }
 
         if($action == 'update'){
            ?>
@@ -1088,6 +1091,9 @@ function dropmockMarketPlaceConfiguration(){
             <h1 style="font-size:150%;" class="wp-heading-inline">Welcome <?= ucfirst($user_name);  ?></h1>
             <a class="page-title-action hide-if-no-customize" href="<?= WEBSITE_URL.'/wp-admin/admin.php?page=dropmock-marketplace-settings&action=update'; ?>">
                 Update API Key
+            </a>
+            <a class="page-title-action hide-if-no-customize" href="<?= WEBSITE_URL.'/wp-admin/admin.php?page=dropmock-marketplace-settings&action=vendors_update'; ?>">
+                Update My Vendors
             </a>
             <?php if ($isEliteUser): ?>
                         <span style=" background-color: #5cb85c;display: inline;
@@ -1339,6 +1345,40 @@ function dropmockCheckEliteStatus(){
 
 }
 
+function updateMyVendors(){
+
+    $API_KEY = get_option('kinetic_api_key');
+    $url = DM_API_URL . "/api/v1/check_api?key=" . $API_KEY.'&domain='.WEBSITE_URL;
+    $ch = curl_init( $url );
+    curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+    $result = curl_exec( $ch );
+
+    if(curl_error($ch))
+    {
+        return 'Configuration Error Occurred : '.curl_error($ch);
+    }
+
+    curl_close ($ch);
+
+    $result = json_decode($result);
+
+    if($result == 'failed' || $result == null)
+        return 'fail';
+
+    $vendors = array('DropMock');
+
+    if($result->youzign_key != '' && $result->youzign_token != '')
+        $vendors[] = 'Youzign';
+
+    if($result->designpro_key != '')
+        $vendors[] = 'DesignoPro';
+    
+    if(get_option('vendors'))
+        update_option('vendors',$vendors);
+    else
+        add_option( 'vendors', $vendors, '', 'yes' );
+}
+
 function dropmockCheckAPIKey($API_KEY){
     $url = DM_API_URL . "/api/v1/check_api?key=" . $API_KEY.'&domain='.WEBSITE_URL;
     $ch = curl_init( $url );
@@ -1364,8 +1404,11 @@ function dropmockCheckAPIKey($API_KEY){
     if($result->designpro_key != '')
         $vendors[] = 'DesignoPro';
     
+    if(get_option('vendors'))
+        update_option('vendors',$vendors);
+    else
+        add_option( 'vendors', $vendors, '', 'yes' );
 
-    add_option( 'vendors', $vendors, '', 'yes' );
     add_option( 'elite_user', false, '', 'yes' );
     if($result->is_dropmock_store_elite_user === true)
         update_option( 'elite_user', $result->is_dropmock_store_elite_user);
