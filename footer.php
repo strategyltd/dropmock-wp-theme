@@ -33,6 +33,7 @@ $social_links = ['facebook','instagram','twitter','linkedin'];
 	<h3 class="center theme-font-color">Explore Templates</h3>
 	<?php get_search_form();  ?>
 
+	<a href="<?= (get_theme_mod('footer_ad_link'))? addhttp(get_theme_mod('footer_ad_link')) : '#' ; ?>" target="_blank">
 	<?php if (isset($ad_url)): ?>
 		<?php if (get_theme_mod('footer_ad_width') && get_theme_mod('footer_ad_height')): ?>
 			<div class="my_ad_space" style="background-image:url('<?= $ad_url  ?>');
@@ -45,7 +46,9 @@ $social_links = ['facebook','instagram','twitter','linkedin'];
 		<div class="my_ad_space">
 			AD SPACE
 	<?php endif ?>
-	</div>
+</div>
+</a>
+
 
 </div>
 

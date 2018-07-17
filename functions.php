@@ -431,6 +431,12 @@ add_action('customize_register', function ($wp_customize) {
         'transport' => 'refresh',
     ));
 
+    // AD SPACE SETTING
+    $wp_customize->add_setting('footer_ad_link', array(
+        'default' => '',
+        'transport' => 'refresh',
+    ));
+
     //SOCIAL LINKS
     $wp_customize->add_setting('social_facebook_link', array('default' => 'http://facebook.com','transport' => 'refresh',));
     $wp_customize->add_setting('social_instagram_link', array('default' => 'http://instagram.com','transport' => 'refresh',));
@@ -473,6 +479,16 @@ add_action('customize_register', function ($wp_customize) {
         'type' => 'text',
         'priority' =>10,
     )));
+
+    $wp_customize->add_control( new WP_Customize_Control($wp_customize, 'footer_ad_link', array(
+        'label' => __( 'AD URL', 'wp-bootstrap-starter' ),
+        'section'    => 'ad_section',
+        'settings'   => 'footer_ad_link',
+        'type' => 'text',
+        'priority' =>10,
+    )));
+
+
 
 
     /*
@@ -819,6 +835,13 @@ add_action('admin_notices', function () {
     }
 });
 
+
+function addhttp($url) {
+    if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
+        $url = "http://" . $url;
+    }
+    return $url;
+}
 
 function dmmp_product_categories($atts) {
 
