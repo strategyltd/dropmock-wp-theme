@@ -80,7 +80,7 @@ $price = $product->get_price();
 				<?php if ($price == '0'): ?>
 					FREE
 				<?php else: ?>
-					$<?= $price; ?>.00
+					<?=  get_woocommerce_currency_symbol() .$price; ?>.00
 				<?php endif ?>
 			</span>
 			<span class="cart">

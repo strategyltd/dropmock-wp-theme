@@ -76,7 +76,7 @@ wc_print_notices();
 		</div>
 		<div class="product_bottom_section">
 			<span class="price">
-				$<?= $product->get_price(); ?>.00
+				<?= get_woocommerce_currency_symbol().$product->get_price(); ?>
 			</span>
 			<span class="cart">
 				<a href="<?= WEBSITE_URL.'/?add-to-cart='.$post->ID; ?>">

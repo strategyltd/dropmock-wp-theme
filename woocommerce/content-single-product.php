@@ -46,6 +46,10 @@ if(strtolower($type) == 'featured'){
     $canvas = true;
 }
 
+if(strtolower($type) == 'videoremix'){
+	$product_src = get_post_meta($post->ID, 'wpdmmp_m_product_src')[0];
+}
+
 
 $imgURL = get_the_post_thumbnail_url($post->ID, apply_filters('single_product_large_thumbnail_size', 'shop_single'));
 $title = get_the_title();
@@ -65,7 +69,7 @@ $price = $product->get_price();
 if($price == '0')
 	$price = 'FREE';
 else
-	$price = '$'.$price;
+	$price = get_woocommerce_currency_symbol().$price;
 
 ?>
 
@@ -83,15 +87,20 @@ else
 		<div class="wide_banner"></div>
 		<div class="product_div">
 			<div class="col-sm-8 col-xs-12" style="float:left;height:100%">
-				<?php if (in_array($file_extension, $supported_image)): ?>
-					<img src="<?= $preview_url ?>" class="img-responsive" style="width:100%;height:100%;">
+				<?php if ($type == 'Videoremix'): ?>
+					<iframe src="<?= $product_src ?>" width="100%" height="100%"></iframe>
 				<?php else: ?>
-					<video class="product_video" autoplay controls controlsList="nodownload" src="<?= $preview_url ?>" poster="<?= $imgURL ?>">
-				    </video>
+					<?php if (in_array($file_extension, $supported_image)): ?>
+						<img src="<?= $preview_url ?>" class="img-responsive" style="width:100%;height:100%;">
+					<?php else: ?>
+						<video class="product_video" autoplay controls controlsList="nodownload" src="<?= $preview_url ?>" poster="<?= $imgURL ?>">
+					    </video>
+					<?php endif ?>
 				<?php endif ?>
+				
 			</div>
 			<div class="col-sm-4 product_info_section center" style="float:left;margin-top:10%;">
-				<h2 style="word-break: break-all;"><?= $title  ?></h2>
+				<h2 style=""><?= $title  ?></h2>
 				<span class="price">
 					<?= $price?>
 				</span>
@@ -155,7 +164,7 @@ else
 					<?php endif ?>
 				</div>
 				<div class="col-sm-4 product_info_section center" style="float:left;margin-top:10%;">
-					<h2 style="word-break: break-all;"><?= $title  ?></h2>
+					<h2 style=";"><?= $title  ?></h2>
 					<span class="price">
 						<?= $price ?>
 					</span>

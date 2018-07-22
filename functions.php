@@ -1398,6 +1398,10 @@ function updateMyVendors(){
 
     if($result->designpro_key != '')
         $vendors[] = 'DesignoPro';
+
+    if($result->videoremix_key != '')
+        $vendors[] = 'VideoRemix';
+    
     
     if(get_option('vendors'))
         update_option('vendors',$vendors);
@@ -1429,6 +1433,9 @@ function dropmockCheckAPIKey($API_KEY){
 
     if($result->designpro_key != '')
         $vendors[] = 'DesignoPro';
+
+    if($result->videoremix_key != '')
+        $vendors[] = 'VideoRemix';
     
     if(get_option('vendors'))
         update_option('vendors',$vendors);
@@ -1475,7 +1482,7 @@ function dropmockMarketPlaceCountProducts($vendor) {
 
     $productsCount = [];
     if(strcasecmp($vendor,'dropmock') === 0)
-        $types = ['IMAGES', 'VIDEOS', 'PITCH', 'KINETIC', 'CANVAS', 'FEATURED'];
+        $types = ['IMAGES', 'VIDEOS', 'PITCH', 'KINETIC', 'CANVAS', 'FEATURED','VERTICAL','MOVEZZ'];
 
     if(strcasecmp($vendor,'designopro') === 0)
         $types = ['DesignoPro'];
@@ -1483,6 +1490,9 @@ function dropmockMarketPlaceCountProducts($vendor) {
 
     if(strcasecmp($vendor,'youzign') === 0)
         $types = ['Youzign'];
+
+    if(strcasecmp($vendor,'videoremix') === 0)
+        $types = ['Videoremix'];
         
     foreach ($types as $type) {
         $args = array(

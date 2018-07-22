@@ -507,15 +507,10 @@ header#masthead {
 }
 
 .category_filters{
-  /*margin-top: 2%;*/
-  padding:1%;
   text-align: center;
-  /*border-top: 1px solid #7f8c8d;
-  border-bottom: 1px solid #7f8c8d;*/
-  width: 70%;
-  /*max-width: 50%;*/
+  width: 80%;
   margin:0 auto;
-  height:30px;
+  padding: 1%;
 }
 
 .category_filters a{

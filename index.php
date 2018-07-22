@@ -41,7 +41,7 @@ get_header(); ?>
 				<?php endforeach ?>
 			</div>
 		</div>
-		<hr>
+		<hr style="margin:0px;">
 
 		<?php 
 			$homeProductsPerPage = 8;

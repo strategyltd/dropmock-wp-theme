@@ -36,7 +36,8 @@ class WP_Example_Process extends WP_Background_Process {
 	                'preview_url' => $product->preview_url,
 	                'uuid' => $product->uuid,
 	                'extra' => $product->extra,
-	                'vendor' => $product->vendor
+	                'vendor' => $product->vendor,
+	                'product_src'=> (strtolower($product->type) == 'videoremix')? $product->product_src : ''
 	            ],
 	        ]);
 		}
