@@ -7,7 +7,9 @@
 
 
 <?php 
-    $page = get_page();
+    // $page = get_page();
+    $page_ID = get_the_ID();
+    $page = get_page($page_ID);
     $content = $page->post_content;
     $feat_image = wp_get_attachment_image_src( get_post_thumbnail_id( $page->ID ), 'large' );
     if(is_array($feat_image))
