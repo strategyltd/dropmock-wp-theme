@@ -69,7 +69,7 @@ $price = $product->get_price();
 if($price == '0')
 	$price = 'FREE';
 else
-	$price = get_post_meta( $post->ID, '_regular_price');
+	$price = get_woocommerce_currency_symbol().woocommerce_price($price);
 
 ?>
 
