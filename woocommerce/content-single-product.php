@@ -65,11 +65,11 @@ $supported_image = array(
 
 wc_print_notices();
 
-$price = $product->get_price();
+$price = $product->get_price_including_tax();
 if($price == '0')
 	$price = 'FREE';
 else
-	$price = get_woocommerce_currency_symbol().woocommerce_price($price);
+	$price = woocommerce_price($price);
 
 ?>
 
