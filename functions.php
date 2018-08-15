@@ -1291,7 +1291,7 @@ function getOrderRenderUrls(){
         $product_id = $product->get_id();
         $product_name = $product->get_name();
         $product_type = get_post_meta($product_id,'wpdmmp_m_type')[0];
-        if(in_array(strtolower($product_type), ['canvas','kinetic'])){
+        if(in_array(strtolower($product_type), ['canvas','kinetic', 'movezz', 'vertical'])){
             $uuid = get_post_meta( $product_id, 'wpdmmp_m_uuid' )[0];
             $render_uuid = sendRenderRequestToDropmock($uuid);
             $render_url = DM_RENDER_URL.'/editor#/key/'.$render_uuid;
