@@ -43,7 +43,7 @@ $social_links = ['facebook','instagram','twitter','linkedin'];
 			<div class="my_ad_space" style="background-image:url('<?= $ad_url  ?>');">
 		<?php endif ?>
 	<?php else: ?>
-		<div class="my_ad_space">
+		<div class="my_ad_space" style="background-color: #f1f1f1;">
 			AD SPACE
 	<?php endif ?>
 </div>

@@ -470,16 +470,16 @@ header#masthead {
 }
 
 .my_ad_space{
-  margin: 5%;
   height: 100px;
   width:50%;
-  background-color: #f1f1f1;
   margin:0 auto;
   margin-bottom:5%;
   margin-top: 5%;
   padding: 3%;
   font-weight: bold;
-  background-size:cover;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 
@@ -667,10 +667,6 @@ body:not(.theme-preset-active) #masthead .navbar-nav > li.current_page_item > a 
 
 .bg-primary:hover{
   color:white !important;
-}
-
-.my_ad_space{
-  background-size: 100% 100%;
 }
 
 .fa-facebook{
