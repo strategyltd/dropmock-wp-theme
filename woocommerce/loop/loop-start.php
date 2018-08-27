@@ -19,7 +19,43 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+$category_title = single_cat_title("", false);;
 ?>
 <!-- <ul class="products columns-<?php echo esc_attr( wc_get_loop_prop( 'columns' ) ); ?>"> -->
 
 <div class="col-sm-12" style="clear:both;">
+
+
+<?php if (is_product_category()): ?>
+<h3 class="center mobile_margin_top">
+		<?php if (get_theme_mod('homepage_main_heading')): ?>
+			<?= get_theme_mod('homepage_main_heading') ?>
+		<?php else: ?>
+			Templates
+		<?php endif ?>
+	</h3>
+
+	<hr style="margin:0px;">
+	<div class="category_filters">
+		<?php $categories = getProductCategories();  ?>
+		<div class="col-sm-12 col-xs-12">
+			<?php foreach ( $categories as $category): ?>
+
+				<a href="<?= get_term_link($category->term_taxonomy_id); ?>">
+					<?php if ($category->name == $category_title): ?>
+						<span class="theme-font-color">
+							<?= $category->name ?>
+						</span>
+					<?php else: ?>
+						<?= $category->name ?>
+					<?php endif ?>
+					
+				</a>
+			<?php endforeach ?>
+		</div>
+	</div>
+	<hr style="margin:0px;">
+
+ 	
+ <?php endif ?>
