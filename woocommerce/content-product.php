@@ -56,7 +56,7 @@ $price = $product->get_price();
 		<div class="media_holder">
 		<a href="<?= WEBSITE_URL.'/product/'.$product->slug; ?>">
 			<?php if (in_array($file_extension, $supported_image)): ?>
-		    	<img src="<?= $preview_url ?>" class="attachment-shop_single size-shop_single wp-post-image img-responsive">
+		    	<img src="<?= $imgURL ?>" class="attachment-shop_single size-shop_single wp-post-image img-responsive">
 		    <?php elseif(in_array($file_extension, $supported_svg)): ?>
 		    	<img src="<?= $preview_url ?>" class="attachment-shop_single size-shop_single wp-post-image img-responsive">
 		    <?php else: ?>
