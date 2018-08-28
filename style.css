@@ -344,6 +344,7 @@ header#masthead {
 
 .product_in_loop img, video{
   height:150px;
+  width:100%;
 }
 
 .product_in_loop .title{
