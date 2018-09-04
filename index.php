@@ -48,7 +48,7 @@ get_header(); ?>
 			$homeProductsPerPage = 8;
 			$homeColumns = 4;
 			if (checkFeaturedProductsCount())
-				$shortCodeTodo = '[featured_products per_page=”8″ columns=”4″ orderby=”date” order=”desc”]';
+				$shortCodeTodo = '[featured_products columns=”4″ orderby=”date” order=”desc”]';
 			else
 				$shortCodeTodo = '[recent_products per_page="' . $homeProductsPerPage . '" columns="' . $homeColumns . '"]';
 
