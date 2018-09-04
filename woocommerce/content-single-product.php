@@ -65,7 +65,7 @@ $title = get_the_title();
 $description = get_post($post->ID)->post_content;
 
 
-if(in_array($type, $HD_Types)){
+if(in_array($type, $HD_Types) && isset($meta['wpdmmp_m_text_count'][0])){
 	$is_hd_type = true;
 	$text_count = (int) $meta['wpdmmp_m_text_count'][0];
 	$images_count = (int) $meta['wpdmmp_m_images_count'][0];
