@@ -33,8 +33,17 @@ if ( post_password_required() ) {
 }
 
 $meta = get_post_meta($post->ID);
+
 $preview_url = $meta['wpdmmp_m_preview_url'][0];
 $type = $meta['wpdmmp_m_type'][0];
+
+$HD_Types = array('Kinetic','Canvas','Vertical','Movezz');
+$is_hd_type = false;
+
+
+
+	
+
 
 $canvas = false;
 if(strtolower($type) == 'canvas')
@@ -54,6 +63,17 @@ if(strtolower($type) == 'videoremix'){
 $imgURL = get_the_post_thumbnail_url($post->ID, apply_filters('single_product_large_thumbnail_size', 'shop_single'));
 $title = get_the_title();
 $description = get_post($post->ID)->post_content;
+
+
+if(in_array($type, $HD_Types)){
+	$is_hd_type = true;
+	$text_count = (int) $meta['wpdmmp_m_text_count'][0];
+	$images_count = (int) $meta['wpdmmp_m_images_count'][0];
+	$videos_count = (int) $meta['wpdmmp_m_videos_count'][0];
+	$description = 'This template consists of '.$text_count. ' text fields, '.$images_count.' images and '.$videos_count.' videos';
+}
+
+
 $file_extension = strrev(explode(".", strrev($preview_url))[0]);
 $supported_image = array(
     'gif',
@@ -79,7 +99,6 @@ else
 </a>
 
 </div> </div>
-
 
 
 <?php if (!$canvas): ?>
@@ -133,7 +152,8 @@ else
 			
 			<div class="" style="background-color:white;height:22%;margin-top:2%;border-radius:2px">
 				<div class="col-sm-10" style="float:left;margin-top:2%;clear:both;">
-					<h2 style="margin-bottom:px;padding-bottom:0px;"><?= $title  ?>
+					<h2 class="canvas_title" style="margin-bottom:px;padding-bottom:0px;">
+						<?= $title  ?>
 						-
 						<span class="price">
 						<b><?= $price; ?></b>
