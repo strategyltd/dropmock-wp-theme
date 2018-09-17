@@ -1121,6 +1121,9 @@ function dropmockMarketPlaceConfiguration(){
             <a class="page-title-action hide-if-no-customize" href="<?= WEBSITE_URL.'/wp-admin/admin.php?page=dropmock-marketplace-settings&action=vendors_update'; ?>">
                 Update My Vendors
             </a>
+            <a class="page-title-action hide-if-no-customize" href="<?= wp_nonce_url( admin_url( '?process=update_products&vendor=dropmock'), 'process' ) ?>">
+                Update My Products
+            </a>
             <?php if ($isEliteUser): ?>
                         <span style=" background-color: #5cb85c;display: inline;
                     padding: .2em .6em .3em;
@@ -1291,7 +1294,7 @@ function getOrderRenderUrls(){
         $product_id = $product->get_id();
         $product_name = $product->get_name();
         $product_type = get_post_meta($product_id,'wpdmmp_m_type')[0];
-        if(in_array(strtolower($product_type), ['canvas','kinetic'])){
+        if(in_array(strtolower($product_type), ['canvas','kinetic', 'movezz', 'vertical'])){
             $uuid = get_post_meta( $product_id, 'wpdmmp_m_uuid' )[0];
             $render_uuid = sendRenderRequestToDropmock($uuid);
             $render_url = DM_RENDER_URL.'/editor#/key/'.$render_uuid;
@@ -1333,6 +1336,18 @@ function sendRenderRequestToDropmock($uuid){
     return false;
 }
 
+
+function checkFeaturedProductsCount(){
+    $products = wc_get_featured_product_ids();
+    $count = count($products);
+    // var_dump($count);exit();
+    if($count >= 4)
+        return true;
+    else
+        return false;
+}
+
+
 function checkIfProductExists($dmProductId) {
     $args = array(
         'post_type' => 'product',
@@ -1347,7 +1362,36 @@ function checkIfProductExists($dmProductId) {
     $product = get_posts($args);
 
     return count($product) > 0;
-}   
+}
+
+function getProductById($dmProductId) {
+    $args = array(
+        'post_type' => 'product',
+        'post_status' => 'publish',
+        'posts_per_page' => 1,
+        'order' => 'DESC',
+        'orderby' => 'post_date',
+        'meta_key' => 'dm_product_id',
+        'meta_value' => $dmProductId,
+    );
+
+    $product = get_posts($args);
+
+    if(count($product) > 0)
+        return $product[0];
+    else
+        return false;
+}
+
+function updateProductById($id,$product){
+
+    // $product_description = get_post($id)->post_content;
+    // printme($product_description);
+    // exit();
+    update_post_meta($id,'wpdmmp_m_text_count', $product->text_count);
+    update_post_meta($id,'wpdmmp_m_images_count',$product->images_count);
+    update_post_meta($id,'wpdmmp_m_videos_count',$product->videos_count);
+}
 
 
 function dropmockMarketDisconnectStore(){
@@ -1370,6 +1414,7 @@ function dropmockCheckEliteStatus(){
         return true;
 
 }
+
 
 function updateMyVendors(){
 

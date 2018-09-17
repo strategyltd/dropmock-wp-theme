@@ -33,8 +33,17 @@ if ( post_password_required() ) {
 }
 
 $meta = get_post_meta($post->ID);
+
 $preview_url = $meta['wpdmmp_m_preview_url'][0];
 $type = $meta['wpdmmp_m_type'][0];
+
+$HD_Types = array('Kinetic','Canvas','Vertical','Movezz');
+$is_hd_type = false;
+
+
+
+	
+
 
 $canvas = false;
 if(strtolower($type) == 'canvas')
@@ -54,6 +63,17 @@ if(strtolower($type) == 'videoremix'){
 $imgURL = get_the_post_thumbnail_url($post->ID, apply_filters('single_product_large_thumbnail_size', 'shop_single'));
 $title = get_the_title();
 $description = get_post($post->ID)->post_content;
+
+
+if(in_array($type, $HD_Types) && isset($meta['wpdmmp_m_text_count'][0])){
+	$is_hd_type = true;
+	$text_count = (int) $meta['wpdmmp_m_text_count'][0];
+	$images_count = (int) $meta['wpdmmp_m_images_count'][0];
+	$videos_count = (int) $meta['wpdmmp_m_videos_count'][0];
+	// $description .= '. This template consists of '.$text_count. ' text fields, '.$images_count.' images and '.$videos_count.' videos';
+}
+
+
 $file_extension = strrev(explode(".", strrev($preview_url))[0]);
 $supported_image = array(
     'gif',
@@ -81,9 +101,8 @@ else
 </div> </div>
 
 
-
 <?php if (!$canvas): ?>
-	<div class="product_full_div">
+	<div class="product_full_div" style="">
 		<div class="wide_banner"></div>
 		<div class="product_div">
 			<div class="col-sm-8 col-xs-12" style="float:left;height:100%">
@@ -107,11 +126,23 @@ else
 				<hr class="after_price">
 				<a href="<?= WEBSITE_URL.'/product/'.$product->slug.'/?add-to-cart='.$post->ID; ?>" class="single_add_to_cart_button button alt">Add to cart</a>
 				<p style="margin-top:5%;"><?= $description; ?></p>
+				<?php if (isset($text_count)): ?>
+			<div class="row">
+				<h3 class="center" style="width:100%;">
+					<i class="fa fa-font"></i>
+					<?= $text_count ?>
+					&nbsp;&nbsp;<i class="fa fa-image"></i>
+					<?= $images_count ?>
+					&nbsp;&nbsp;<i class="fa fa-video"></i>
+					<?= $videos_count ?>
+				</h3>
+			</div>
+		<?php endif ?>
 			</div>
 		</div>
 	</div>
 <?php else: ?>
-	<div class="product_full_div canvas_div" style="height:520px;">
+	<div class="product_full_div canvas_div" style="height:550px;">
 		<div class="wide_banner"></div>
 		<div class="product_div" style="padding:0px;background-color:#eaebef;height:100%;">
 			<div style="width:100%;height:10%;background-size:100% 100%;background-image:url('<?= get_template_directory_uri() ?>/inc/assets/img/fbheader_curved.png');">
@@ -133,13 +164,26 @@ else
 			
 			<div class="" style="background-color:white;height:22%;margin-top:2%;border-radius:2px">
 				<div class="col-sm-10" style="float:left;margin-top:2%;clear:both;">
-					<h2 style="margin-bottom:px;padding-bottom:0px;"><?= $title  ?>
+					<h2 class="canvas_title" style="margin-bottom:px;padding-bottom:0px;">
+						<?= $title  ?>
 						-
 						<span class="price">
 						<b><?= $price; ?></b>
 					</span>
 					</h2>
 					<p><?= $description; ?></p>
+					<?php if (isset($text_count)): ?>
+			<div class="row">
+				<h3 style="margin-left:2%;">
+					<i class="fa fa-font"></i>
+					<?= $text_count ?>
+					&nbsp;&nbsp;<i class="fa fa-image"></i>
+					<?= $images_count ?>
+					&nbsp;&nbsp;<i class="fa fa-video"></i>
+					<?= $videos_count ?>
+				</h3>
+			</div>
+		<?php endif ?>
 				</div>
 				<div class="col-sm-2" style="float:left;text-align:right;margin-top:2%">
 					
@@ -171,13 +215,24 @@ else
 					<hr class="after_price">
 					<a href="<?= WEBSITE_URL.'/product/'.$product->slug.'/?add-to-cart='.$post->ID; ?>" class="single_add_to_cart_button button alt">Add to cart</a>
 					<p style="margin-top:5%;"><?= $description; ?></p>
+					<?php if (isset($text_count)): ?>
+			<div class="row">
+				<h2 class="center" style="width:100%;">
+					<i class="fa fa-font"></i>
+					<?= $text_count ?>
+					&nbsp;&nbsp;<i class="fa fa-image"></i>
+					<?= $images_count ?>
+					&nbsp;&nbsp;<i class="fa fa-video"></i>
+					<?= $videos_count ?>
+				</h2>
+			</div>
+		<?php endif ?>
 				</div>
 			</div>
 		</div>
 	</div>
 
 <?php endif ?>
-
 
 <div class="product_info_section_xs center">
 		<h2 class="center"><?= $title  ?></h2>
@@ -186,8 +241,21 @@ else
 		</span>
 		<a href="<?= WEBSITE_URL.'/product/'.$product->slug.'/?add-to-cart='.$post->ID; ?>" class="single_add_to_cart_button button alt">Add to cart</a>
 		<p style="margin-top:5%;"><?= $description; ?></p>
+		<?php if (isset($text_count)): ?>
+			<div class="row">
+				<h2 class="center" style="width:100%;">
+					<i class="fa fa-font"></i>
+					<?= $text_count ?>
+					&nbsp;&nbsp;<i class="fa fa-image"></i>
+					<?= $images_count ?>
+					&nbsp;&nbsp;<i class="fa fa-video"></i>
+					<?= $videos_count ?>
+				</h2>
+			</div>
+		<?php endif ?>
 		<hr class="after_price">
 </div>
+
 
 
 <div class="related_products container" style="margin-top:10%;clear:both;">

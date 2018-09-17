@@ -31,22 +31,27 @@ get_header(); ?>
 		</h3>
 
 		<hr style="margin:0px;">
-		<div class="category_filters">
+		<div class="row category_filters">
 			<?php $categories = getProductCategories();  ?>
 			<div class="col-sm-12 col-xs-12">
 				<?php foreach ( $categories as $category): ?>
+				<div class="col-sm-2" style="float:left">
 					<a href="<?= get_term_link($category->term_taxonomy_id); ?>">
 						<?= $category->name ?>
 					</a>
+				</div>
 				<?php endforeach ?>
 			</div>
 		</div>
 		<hr style="margin:0px;">
-
 		<?php 
 			$homeProductsPerPage = 8;
 			$homeColumns = 4;
-			$shortCodeTodo = '[recent_products per_page="' . $homeProductsPerPage . '" columns="' . $homeColumns . '"]';
+			if (checkFeaturedProductsCount())
+				$shortCodeTodo = '[featured_products limit="40" columns=”4″ orderby=”date” order=”desc”]';
+			else
+				$shortCodeTodo = '[recent_products per_page="' . $homeProductsPerPage . '" columns="' . $homeColumns . '"]';
+
 			echo '<div class="dropmock_products">' . do_shortcode($shortCodeTodo) . '</div>';
 		?>
 

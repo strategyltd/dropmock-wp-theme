@@ -43,7 +43,7 @@ $social_links = ['facebook','instagram','twitter','linkedin'];
 			<div class="my_ad_space" style="background-image:url('<?= $ad_url  ?>');">
 		<?php endif ?>
 	<?php else: ?>
-		<div class="my_ad_space">
+		<div class="my_ad_space" style="background-color: #f1f1f1;">
 			AD SPACE
 	<?php endif ?>
 </div>
@@ -145,6 +145,17 @@ $social_links = ['facebook','instagram','twitter','linkedin'];
 		       	else
 		       		$("#myVideo").css('object-fit','cover');
 		    });
+  		}
+
+  		if($(".canvas_title").length != 0){
+  			var height = $(".canvas_title").height();
+  			while(height >= 30){
+  				var font_size =  $(".canvas_title").css('font-size');
+  				font_size = parseInt(font_size);
+  				font_size = font_size*0.9;
+  				$(".canvas_title").css('font-size',font_size+'px');
+  				height = $(".canvas_title").height();
+  			}
   		}
 
   		// var primary_color = $("a").css('color');

@@ -37,13 +37,20 @@ class WP_Example_Process extends WP_Background_Process {
 	                'uuid' => $product->uuid,
 	                'extra' => $product->extra,
 	                'vendor' => $product->vendor,
-	                'product_src'=> (strtolower($product->type) == 'videoremix')? $product->product_src : ''
+	                'product_src'=> (strtolower($product->type) == 'videoremix')? $product->product_src : '',
+	                'images_count' => $product->images_count,
+	                'text_count' => $product->text_count,
+	                'videos_count' => $product->videos_count
 	            ],
 	        ]);
 		}
 
 		if($product->action == 'remove'){
 			dropmockStoreDeleteProduct($product->ID);
+		}
+
+		if($product->action == 'update'){
+			updateProductById($product->ID,$product);
 		}
 
 		$i = (int)get_transient( 'sync_in_progress_done' );

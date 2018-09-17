@@ -103,6 +103,11 @@ class Example_Background_Processing {
 		if($_GET['vendor'] == '')
 			return;
 
+
+		if ( 'update_products' === $_GET['process'] ) {
+			$this->handle_update_products($_GET['vendor']);
+		}
+
 		if ( 'sync' === $_GET['process'] ) {
 			$this->handle_sync($_GET['vendor']);
 		}
@@ -131,6 +136,39 @@ class Example_Background_Processing {
  		}
 		header('Location: '.WEBSITE_URL."/wp-admin/admin.php?page=dropmock-marketplace-settings&vendor=".$vendor);
 	}
+
+
+	/**
+	 * Handle Products Update
+	 */
+	protected function handle_update_products($vendor) {
+
+		$API_KEY = get_option( 'kinetic_api_key' );
+		
+		$total_products = $this->get_products($API_KEY, $vendor);
+		$types = array('KINETIC','CANVAS','VERTICAL','MOVEZZ');
+		$products = array();
+		foreach ($total_products as $product) {
+			if(in_array($product->type, $types)){
+				$product->action = 'update';
+				$product->ID = getProductById($product->id)->ID;
+				$products[]=$product;
+				// updateProductById($product->ID,$product);
+			}
+		}
+
+ 		if(!empty($products)){
+ 			foreach ( $products as $product ) {
+				$this->process_all->push_to_queue( $product );
+			}
+			set_transient('sync_in_progress','1',3600);
+			set_transient('sync_in_progress_total',count($products),3600);
+			set_transient('sync_in_progress_done','0',3600);
+			$this->process_all->save()->dispatch();
+ 		}
+		header('Location: '.WEBSITE_URL."/wp-admin/admin.php?page=dropmock-marketplace-settings&vendor=".$vendor);
+	}
+	
 
 
 
