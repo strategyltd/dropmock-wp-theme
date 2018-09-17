@@ -57,7 +57,4 @@ $category_title = single_cat_title("", false);;
 		</div>
 	</div>
 	<hr style="margin:0px;margin-bottom:2%;">
-	
-
- 	
  <?php endif ?>

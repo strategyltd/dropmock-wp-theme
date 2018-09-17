@@ -70,7 +70,8 @@ if(in_array($type, $HD_Types) && isset($meta['wpdmmp_m_text_count'][0])){
 	$text_count = (int) $meta['wpdmmp_m_text_count'][0];
 	$images_count = (int) $meta['wpdmmp_m_images_count'][0];
 	$videos_count = (int) $meta['wpdmmp_m_videos_count'][0];
-	// $description .= '. This template consists of '.$text_count. ' text fields, '.$images_count.' images and '.$videos_count.' videos';
+
+	$description = 'This template consists of '.$text_count. ' text fields, '.$images_count.' images and '.$videos_count.' videos';
 }
 
 
