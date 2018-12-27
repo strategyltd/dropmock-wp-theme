@@ -1,6 +1,5 @@
 <?php
 
-
 error_reporting(E_ERROR | E_PARSE);
 
 // define('DM_API_URL', 'http://localhost:8000');
@@ -188,7 +187,17 @@ function createDefaultPages(){
 }
 
 
+function searchfilter($query) {
 
+    if ($query->is_search && !is_admin() ) {
+        $query->set('post_type',array('product'));
+        $query->set('posts_per_page',1000);
+    }
+
+return $query;
+}
+
+add_filter('pre_get_posts','searchfilter');
 
 
 
