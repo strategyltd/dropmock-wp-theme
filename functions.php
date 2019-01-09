@@ -140,7 +140,7 @@ function createDefaultNavBar(){
 
         wp_update_nav_menu_item($menu_id, 0, array(
             'menu-item-title' =>  __('Cart'),
-            'menu-item-classes' => 'fa fa fa-cart-plus',
+            'menu-item-classes' => 'fas fa-shopping-cart',
             'menu-item-url' => get_permalink( wc_get_page_id( 'cart' ) ), 
             'menu-item-status' => 'publish'));
     }
