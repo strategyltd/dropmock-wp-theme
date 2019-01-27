@@ -234,7 +234,7 @@ class wp_bootstrap_navwalker extends Walker_Nav_Menu {
             	}
             	$title = ($item->post_title)? $item->post_title : $item->title ;
             	if(strpos($css, 'fa-cart-plus') !== false){
-            		$fb_output .= '<li class="nav-item"><a href="'.wc_get_cart_url().'" class="nav-link"><i class="fas fa-shopping-cart"></i> '.$item->title.'</a></li></a></li>';
+            		$fb_output .= '<li class="nav-item"><a href="'.wc_get_cart_url().'" class="nav-link"><i class="fa fa-shopping-cart"></i> '.$item->title.'</a></li></a></li>';
             	}
             	else
             		$fb_output .= '<li class="nav-item"><a href="'.$item->url.'" class="nav-link">'.$item->title.'</a></li>';
@@ -243,7 +243,7 @@ class wp_bootstrap_navwalker extends Walker_Nav_Menu {
 
             }
 
-           
+
             // $fb_output .= '>';
             // $fb_output .= '<li class="nav-item"><a href="#" class="nav-link">Home</a></li>';
             // $fb_output .= '<li class="nav-item"><a href="#" class="nav-link">About Us</a></li>';

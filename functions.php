@@ -112,36 +112,36 @@ function createDefaultNavBar(){
         wp_update_nav_menu_item($menu_id, 0, array(
             'menu-item-title' =>  __('Home'),
             'menu-item-classes' => 'home',
-            'menu-item-url' => home_url( '/' ), 
+            'menu-item-url' => home_url( '/' ),
             'menu-item-status' => 'publish'));
 
         wp_update_nav_menu_item($menu_id, 0, array(
             'menu-item-title' =>  __('Shop'),
             'menu-item-classes' => 'shop',
-            'menu-item-url' => home_url( '/shop/' ), 
+            'menu-item-url' => home_url( '/shop/' ),
             'menu-item-status' => 'publish'));
 
         wp_update_nav_menu_item($menu_id, 0, array(
             'menu-item-title' =>  __('About'),
             'menu-item-classes' => 'about',
-            'menu-item-url' => home_url( '/about/' ), 
+            'menu-item-url' => home_url( '/about/' ),
             'menu-item-status' => 'publish'));
 
         wp_update_nav_menu_item($menu_id, 0, array(
             'menu-item-title' =>  __('Contact'),
             'menu-item-classes' => 'contact',
-            'menu-item-url' => home_url( '/contact/' ), 
+            'menu-item-url' => home_url( '/contact/' ),
             'menu-item-status' => 'publish'));
 
         wp_update_nav_menu_item($menu_id, 0, array(
             'menu-item-title' =>  __('Blog'),
-            'menu-item-url' => home_url( '/blog/' ), 
+            'menu-item-url' => home_url( '/blog/' ),
             'menu-item-status' => 'publish'));
 
         wp_update_nav_menu_item($menu_id, 0, array(
             'menu-item-title' =>  __('Cart'),
             'menu-item-classes' => 'fas fa-shopping-cart',
-            'menu-item-url' => get_permalink( wc_get_page_id( 'cart' ) ), 
+            'menu-item-url' => get_permalink( wc_get_page_id( 'cart' ) ),
             'menu-item-status' => 'publish'));
     }
 
@@ -179,8 +179,8 @@ function createDefaultPages(){
                  update_post_meta( $page_id, '_wp_page_template', $template_file_name );
                  if($page == 'About' || 'Contact')
                     agencytheme_attachImg($pictures[$page], $page_id);
-             }   
-             
+             }
+
         }
         add_option('default_pages_is_created','1','','yes');
     }
@@ -393,7 +393,7 @@ function my_custom_fonts() {
  * Add theme settings in the customizer
  */
 add_action('customize_register', function ($wp_customize) {
-    
+
 
     if( 'DropMock MarketPlace Theme' != get_current_theme())
         return;
@@ -451,7 +451,7 @@ add_action('customize_register', function ($wp_customize) {
     $wp_customize->add_setting('social_instagram_link', array('default' => 'http://instagram.com','transport' => 'refresh',));
     $wp_customize->add_setting('social_twitter_link', array('default' => 'https://twitter.com','transport' => 'refresh',));
     $wp_customize->add_setting('social_linkedin_link', array('default' => 'https://www.linkedin.com','transport' => 'refresh',));
-    
+
     //CONTACT INFO
     $wp_customize->add_setting('contact_info_phone_1', array('default' => 'phone1','transport' => 'refresh'));
     $wp_customize->add_setting('contact_info_phone_2', array('' => 'refresh','default' => 'phone2'));
@@ -579,7 +579,7 @@ add_action('customize_register', function ($wp_customize) {
     */
 
 
-    // HEADER CALL TO ACTION BUTTON 
+    // HEADER CALL TO ACTION BUTTON
     $wp_customize->add_setting( 'header_banner_button_setting', array(
         'default' => __( 'Shop Now','wp-bootstrap-starter' ),
         'sanitize_callback' => 'wp_filter_nohtml_kses',
@@ -732,7 +732,7 @@ function wp_bootstrap_starter_scripts() {
     // load AItheme styles
     // load WP Bootstrap Starter styles
     wp_enqueue_style( 'wp-bootstrap-starter-style', get_stylesheet_uri() );
-    
+
     if(get_theme_mod( 'theme_option_setting' ) && get_theme_mod( 'theme_option_setting' ) !== 'default') {
         wp_enqueue_style( 'wp-bootstrap-starter-'.get_theme_mod( 'theme_option_setting' ), get_template_directory_uri() . '/inc/assets/css/presets/theme-option/'.get_theme_mod( 'theme_option_setting' ).'.css', false, '' );
     }
@@ -904,7 +904,7 @@ function dmmp_product_categories($atts) {
         $product_categories = array_slice($product_categories, 0, $atts['number']);
     }
 
-    
+
 
     ob_start();
     if ($product_categories) {
@@ -952,7 +952,7 @@ function dropmockMarketPlaceConfiguration(){
         <div class="card">
             <h2>Welcome To DropMock Store</h2>
             <div class="error">
-                <p>You need to install and activate 
+                <p>You need to install and activate
                     <a href="https://wordpress.org/plugins/woocommerce/">WooCommerce</a>
                     before connectiong your store with DropMock.
                 </p>
@@ -964,10 +964,10 @@ function dropmockMarketPlaceConfiguration(){
     }
 
     $error = false;
-    
 
 
-    
+
+
 
     $admin_url = WEBSITE_URL.'/wp-admin/admin.php?page=dropmock-marketplace-settings';
 
@@ -975,7 +975,7 @@ function dropmockMarketPlaceConfiguration(){
     if(isset($_GET['action'])){
         $action = $_GET['action'];
 
-        if($action == 'connect'){   
+        if($action == 'connect'){
 
             $is_curl_enabled = isCurlEnabled();
             if($is_curl_enabled === true){
@@ -989,7 +989,7 @@ function dropmockMarketPlaceConfiguration(){
             }else{
                 $error = 'Please install and enable Curl on your server to be able to connect with your DropMock Account';
             }
-            
+
         }
     }
 
@@ -1085,8 +1085,8 @@ function dropmockMarketPlaceConfiguration(){
                 </p>
                 <!-- <a href="<?= WEBSITE_URL.'/wp-admin/admin.php?page=dropmock-marketplace-settings&action=confirm_update'; ?>" class="button button-primary"> Confirm</a> -->
                 <a href="<?= wp_nonce_url( admin_url( '?process=update_api&'), 'process' ) ?>" class="button button-primary">Confirm</a>
-                
-                
+
+
                 <a href="<?= WEBSITE_URL.'/wp-admin/admin.php?page=dropmock-marketplace-settings'; ?>" class="button">Cancel</a>
            </div>
            <?php
@@ -1097,7 +1097,7 @@ function dropmockMarketPlaceConfiguration(){
             ?>
             <div class="card">
                 <p style="padding:2%;border-left:3px solid #ffb900;">
-                    Please be aware that you are about to supercharge your online store. 
+                    Please be aware that you are about to supercharge your online store.
                     This process might take some time depending on your server speed.
                     </br>
                     <b>Are you sure?</b>
@@ -1108,7 +1108,7 @@ function dropmockMarketPlaceConfiguration(){
             <?php
             exit();
         }
-        
+
 
         $user_name = get_option( 'kinetic_api_name' );
         $products_count = dropmockMarketPlaceCountProducts($active_vendor);
@@ -1145,7 +1145,7 @@ function dropmockMarketPlaceConfiguration(){
                     vertical-align: baseline;
                     border-radius: .25em;float:right">ELITE USER</span>
             <?php endif ?>
-            
+
         </div>
 
         <div class="card" style="max-width:94%;min-height:300px;">
@@ -1169,7 +1169,7 @@ function dropmockMarketPlaceConfiguration(){
                     </div>
                 <?php else: ?>
                 <div style="margin-top:1%;margin-left:2%;">
-                    
+
                 <?php endif ?>
                 <?php if (get_transient('sync_in_progress')): ?>
 
@@ -1193,7 +1193,7 @@ function dropmockMarketPlaceConfiguration(){
                     <div class="subsubsub" style="float:none;">
                     <?php if (is_array($products_count)): ?>
                         <?php foreach ($products_count as $type => $count): ?>
-                            <a href="<?= WEBSITE_URL.'/wp-admin/edit.php?s&post_status=all&post_type=product&action=-1&product_cat='.strtolower($type).'&product_type&stock_status&filter_action=Filter&paged=1&action2=-1' ?>" class="current"><?= $type ?> 
+                            <a href="<?= WEBSITE_URL.'/wp-admin/edit.php?s&post_status=all&post_type=product&action=-1&product_cat='.strtolower($type).'&product_type&stock_status&filter_action=Filter&paged=1&action2=-1' ?>" class="current"><?= $type ?>
                                 <span class="count">(<span class="all-count"><?= $count ?></span>)
                                 </span>
                             </a>
@@ -1209,7 +1209,7 @@ function dropmockMarketPlaceConfiguration(){
         <?php
     }
 
-   
+
     echo ' </div>';
 }
 
@@ -1313,7 +1313,7 @@ function getOrderRenderUrls(){
 
     if(empty($render_urls))
         return false;
-    
+
     $unique_order_option = 'order_'.$order_id.'_urls';
     add_option( $unique_order_option, $render_urls);
 
@@ -1325,7 +1325,7 @@ function sendRenderRequestToDropmock($uuid){
 
     $API_KEY = get_option( 'kinetic_api_key' );
     $store   =  $_SERVER['SERVER_NAME'];
-    $key     = time().'-'.mt_rand(); 
+    $key     = time().'-'.mt_rand();
 
     $url = DM_API_URL . "/kinetic/store/";
     $ch = curl_init();
@@ -1337,7 +1337,7 @@ function sendRenderRequestToDropmock($uuid){
     $server_output = curl_exec ($ch);
     curl_close ($ch);
 
-    
+
     if($server_output){
         return $key ;
     }
@@ -1455,8 +1455,8 @@ function updateMyVendors(){
 
     if($result->videoremix_key != '')
         $vendors[] = 'VideoRemix';
-    
-    
+
+
     if(get_option('vendors'))
         update_option('vendors',$vendors);
     else
@@ -1490,7 +1490,7 @@ function dropmockCheckAPIKey($API_KEY){
 
     if($result->videoremix_key != '')
         $vendors[] = 'VideoRemix';
-    
+
     if(get_option('vendors'))
         update_option('vendors',$vendors);
     else
@@ -1504,17 +1504,17 @@ function dropmockCheckAPIKey($API_KEY){
 
     add_option( 'kinetic_api_key', $API_KEY, '', 'yes' );
     add_option( 'kinetic_api_name', $result->name, '', 'yes' );
-    
+
     return 'success';
 }
 
 function getProductCategories(){
       $taxonomy     = 'product_cat';
-      $orderby      = 'name';  
+      $orderby      = 'name';
       $show_count   = 0;      // 1 for yes, 0 for no
       $pad_counts   = 0;      // 1 for yes, 0 for no
-      $hierarchical = 1;      // 1 for yes, 0 for no  
-      $title        = '';  
+      $hierarchical = 1;      // 1 for yes, 0 for no
+      $title        = '';
       $empty        = 1;
 
       $args = array(
@@ -1547,7 +1547,7 @@ function dropmockMarketPlaceCountProducts($vendor) {
 
     if(strcasecmp($vendor,'videoremix') === 0)
         $types = ['Videoremix'];
-        
+
     foreach ($types as $type) {
         $args = array(
             'post_type' => 'product',
@@ -1731,7 +1731,7 @@ function dropmockStoreGetProductPrice($item) {
 #http://wordpress.stackexchange.com/questions/100838/how-to-set-featured-image-to-custom-post-from-outside-programmatically
 function agencytheme_attachImg($imgURL = '', $attachToPostID = -1) {
 
-    
+
 
     // magic sideload image returns an HTML image, not an ID
     $media = media_sideload_image($imgURL, $attachToPostID);
